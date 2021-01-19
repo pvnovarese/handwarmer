@@ -1,7 +1,8 @@
-FROM fedora:latest AS builder
+ARG ARCH=
+FROM alpine:latest AS builder
 
 WORKDIR /handwarmer
-RUN dnf -y install gcc glibc-static
+RUN apk update && apk add --no-cache git build-base gcc
 COPY ./handwarmer.c /handwarmer/handwarmer.c
 RUN gcc -static handwarmer.c -o handwarmer
 
